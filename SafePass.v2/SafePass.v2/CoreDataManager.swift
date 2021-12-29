@@ -10,15 +10,15 @@ import UIKit
 import CoreData
 
 class CoreDataManager {
-
-let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     func getAllRecordings() -> [Recording] {
         do {
             let recordings = try context.fetch(Recording.fetchRequest())
             return recordings
         } catch{
-          return []
+            return []
         }
         
     }
@@ -31,19 +31,19 @@ let context = (UIApplication.shared.delegate as! AppDelegate).persistentContaine
         }
         return nil
     }
-
+    
     func addNewRecording(company: String, login:String, password: String){
-    let newRecording = Recording(context: context)
-    newRecording.company = company
-    newRecording.login = login
-    newRecording.password = password
-    do {
-        try context.save()
-    } catch {
-        return
+        let newRecording = Recording(context: context)
+        newRecording.company = company
+        newRecording.login = login
+        newRecording.password = password
+        do {
+            try context.save()
+        } catch {
+            return
+        }
     }
-    }
-
+    
     func deleteRecording(recording: Recording){
         context.delete(recording)
         do {
@@ -53,7 +53,7 @@ let context = (UIApplication.shared.delegate as! AppDelegate).persistentContaine
         }
         
     }
-
+    
     func updateRecording(recording: Recording, login:String, password: String){
         recording.login = login
         recording.password = password
@@ -64,7 +64,7 @@ let context = (UIApplication.shared.delegate as! AppDelegate).persistentContaine
         }
         
     }
-
+    
     func checkIfLogged() -> Bool {
         var config: [Config]
         do {
@@ -97,18 +97,18 @@ let context = (UIApplication.shared.delegate as! AppDelegate).persistentContaine
             return []
         }
     }
-func addConfig(name: String, surname: String, phone: String, password: String){
-    let newConfig = Config(context: context)
-    newConfig.name = name
-    newConfig.surname = surname
-    newConfig.phone = phone
-    newConfig.password = password
-    do {
-        try context.save()
-    } catch {
-        return
+    func addConfig(name: String, surname: String, phone: String, password: String){
+        let newConfig = Config(context: context)
+        newConfig.name = name
+        newConfig.surname = surname
+        newConfig.phone = phone
+        newConfig.password = password
+        do {
+            try context.save()
+        } catch {
+            return
+        }
     }
-}
     
     func updateConfig(config: Config, name:String, surname: String){
         config.name = name
